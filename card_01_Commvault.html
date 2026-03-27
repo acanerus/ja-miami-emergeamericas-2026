@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Commvault — Prospect Card</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #f5f5f5;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 20px 12px;
+    min-height: 100vh;
+  }
+  .card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 480px;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .header {
+    background: #ffffff;
+    padding: 20px 20px 16px;
+    border-bottom: 2px solid #111;
+  }
+  .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .prospect-num {
+    font-size: 12px;
+    font-weight: 800;
+    color: #bbb;
+    letter-spacing: 1px;
+  }
+  .prospect-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #ccc;
+  }
+  .ja-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #999;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .company-name {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .badge-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 3px 9px;
+    border-radius: 3px;
+  }
+  .badge-sector { background: #111; color: #fff; }
+  .badge-p1 { background: #f0f0f0; color: #333; border: 1px solid #bbb; }
+  .badge-p2 { background: #f5f5f5; color: #888; border: 1px solid #ccc; }
+  .badge-p3 { background: #fafafa; color: #aaa; border: 1px solid #ddd; }
+  .stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid #e0e0e0;
+  }
+  .stat-value { font-size: 15px; font-weight: 700; color: #111; line-height: 1.2; }
+  .stat-label { font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 1px; }
+  .booth-strip {
+    background: #f7f7f7;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .booth-event { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; color: #999; text-transform: uppercase; }
+  .booth-number { font-size: 14px; font-weight: 800; color: #111; letter-spacing: 1px; }
+  .section { padding: 16px 20px; border-bottom: 1px solid #ebebeb; }
+  .section:last-child { border-bottom: none; }
+  .section-title {
+    font-size: 9px; font-weight: 800; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #999;
+    margin-bottom: 8px; padding-bottom: 5px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .body-text { font-size: 13px; color: #2a2a2a; line-height: 1.6; }
+  .facts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 12px; }
+  .fact-item { font-size: 12px; line-height: 1.4; }
+  .fact-key { color: #888; font-weight: 600; }
+  .fact-val { color: #1a1a1a; }
+  .contact-block { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; }
+  .contact-block + .contact-block { border-top: 1px solid #f0f0f0; }
+  .avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: #222; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex-shrink: 0;
+  }
+  .avatar.secondary { background: #888; }
+  .contact-info { flex: 1; }
+  .contact-tag {
+    display: inline-block; font-size: 9px; font-weight: 700;
+    letter-spacing: 0.5px; padding: 1px 6px; border-radius: 2px;
+    margin-bottom: 4px; text-transform: uppercase;
+  }
+  .tag-primary { background: #111; color: #fff; }
+  .tag-secondary { background: #e8e8e8; color: #555; }
+  .contact-name { font-size: 13px; font-weight: 700; color: #111; }
+  .contact-title { font-size: 11px; color: #666; margin-top: 1px; }
+  .contact-linkedin { font-size: 10px; color: #888; margin-top: 2px; font-style: italic; }
+  .contact-note {
+    font-size: 10px; color: #aaa; margin-top: 5px;
+    padding: 4px 8px; background: #f8f8f8;
+    border-radius: 3px; border-left: 2px solid #ddd; line-height: 1.4;
+  }
+  .ice-breaker-box {
+    background: #f7f7f7; border-left: 3px solid #111;
+    border-radius: 0 4px 4px 0; padding: 12px 14px;
+  }
+  .ice-breaker-box p { font-size: 13px; font-style: italic; color: #1a1a1a; line-height: 1.65; }
+  .offer-list { list-style: none; }
+  .offer-list li {
+    font-size: 13px; color: #1a1a1a;
+    padding: 5px 0 5px 16px;
+    position: relative; line-height: 1.5;
+    border-bottom: 1px solid #f4f4f4;
+  }
+  .offer-list li:last-child { border-bottom: none; }
+  .offer-list li::before {
+    content: ''; position: absolute; left: 0; top: 12px;
+    width: 6px; height: 6px; border-radius: 50%; background: #111;
+  }
+  .footer {
+    background: #f7f7f7; border-top: 1px solid #e0e0e0;
+    padding: 10px 20px;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 4px;
+  }
+  .footer-left { font-size: 10px; font-weight: 700; color: #333; }
+  .footer-right { font-size: 10px; color: #999; }
+  .back-link {
+    display: block; padding: 10px 20px;
+    font-size: 11px; color: #999; text-decoration: none;
+    border-bottom: 1px solid #ebebeb;
+    background: #fafafa;
+  }
+  .back-link:hover { color: #333; }
+</style>
+</head>
+<body>
+<div class="card">
+  <a class="back-link" href="JA_Miami_ProspectCards_Index.html">← Back to Index</a>
+  <div class="header">
+    <div class="top-row">
+      <div class="prospect-num">#01 / 30</div>
+      <div class="prospect-label">Prospect Card</div>
+    </div>
+    <div class="ja-label">Junior Achievement · Greater Miami</div>
+    <div class="company-name">Commvault</div>
+    <div class="badge-row">
+      <span class="badge badge-sector">Technology</span>
+      <span class="badge badge-p1">⬤ Priority 1</span>
+    </div>
+    <div class="stats-row">
+      <div class="stat-item"><div class="stat-value">$996M</div><div class="stat-label">Annual Revenue FY2025</div></div>
+<div class="stat-item"><div class="stat-value">~3,000+</div><div class="stat-label">Employees</div></div>
+<div class="stat-item"><div class="stat-value">NASDAQ: CVLT</div><div class="stat-label">Stock</div></div>
+<div class="stat-item"><div class="stat-value">1996</div><div class="stat-label">Founded</div></div>
+    </div>
+  </div>
+  <div class="booth-strip">
+    <span class="booth-event">eMerge Americas 2026</span>
+    <span class="booth-number">BOOTH #229</span>
+  </div>
+  <div class="section">
+    <div class="section-title">Company Overview</div>
+    <p class="body-text">Global leader in enterprise data protection and cyber resilience. Serves Fortune 500 companies and government agencies worldwide. Achieved $996M revenue in FY2025 with 19% YoY growth. Runs an active employee volunteering initiative called Commvault Cares.</p>
+  </div>
+  <div class="section">
+    <div class="section-title">Key Facts</div>
+    <div class="facts-grid"><div class="fact-item"><span class="fact-key">Sector: </span><span class="fact-val">Cyber Security / Data Mgmt</span></div>
+<div class="fact-item"><span class="fact-key">HQ: </span><span class="fact-val">Tinton Falls, NJ</span></div>
+<div class="fact-item"><span class="fact-key">Miami: </span><span class="fact-val">Active regional sales team</span></div>
+<div class="fact-item"><span class="fact-key">Clients: </span><span class="fact-val">100,000+ organizations</span></div>
+<div class="fact-item"><span class="fact-key">Growth: </span><span class="fact-val">+19% YoY FY2025</span></div>
+<div class="fact-item"><span class="fact-key">CSR: </span><span class="fact-val">Commvault Cares (active)</span></div></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Contacts</div>
+    <div class="contact-block">
+      <div class="avatar">SM</div>
+      <div class="contact-info">
+        <div class="contact-tag tag-primary">Decision Maker</div>
+        <div class="contact-name">Sanjay Mirchandani</div>
+        <div class="contact-title">President & CEO</div>
+        <div class="contact-linkedin">linkedin.com/in/sanjay-mirchandani</div>
+        <div class="contact-note">Likely busy on the floor — keep it brief, aim to book a follow-up</div>
+      </div>
+    </div>
+    <div class="contact-block">
+      <div class="avatar secondary">CP</div>
+      <div class="contact-info">
+        <div class="contact-tag tag-secondary">Easier to Reach</div>
+        <div class="contact-name">Chris Powell</div>
+        <div class="contact-title">Chief Marketing Officer</div>
+        <div class="contact-linkedin">linkedin.com/in/chris-powell-commvault</div>
+        <div class="contact-note">Best person to start the conversation and schedule a follow-up</div>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Why This Company?</div>
+    <p class="body-text">Commvault Cares donated $25K+ in 2023 to employee-selected nonprofits including UNCF. They operate 7 active ERGs and place DEI at the center of company strategy. Financial literacy maps directly onto their 'investing in the next generation' narrative.</p>
+  </div>
+  <div class="section">
+    <div class="section-title">Ice Breaker</div>
+    <div class="ice-breaker-box"><p>"You've been growing your presence here in Miami — we'd love to help you put down roots in the community. JA connects your team directly with the next generation of Miami's workforce, and your Commvault Cares program is a perfect fit."</p></div>
+  </div>
+  <div class="section">
+    <div class="section-title">Proposed Offer</div>
+    <ul class="offer-list">
+      <li>Corporate sponsorship package — brand visibility at JA Miami events & schools</li>
+<li>Employee volunteering — team teaches a JA financial literacy class (half-day)</li>
+    </ul>
+  </div>
+  <div class="footer">
+    <span class="footer-left">Created by JA Miami · Ahmet Caner</span>
+    <span class="footer-right">April 23–24, 2026</span>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JA Miami · eMerge 2026 Prospect Dashboard</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #f5f5f5;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 48px;
+  }
+
+  .page {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ── HEADER ─────────────────────────────── */
+  .header {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 28px 24px 24px;
+    margin-bottom: 16px;
+  }
+
+  .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .org-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #999;
+  }
+
+  .event-badge {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #555;
+    background: #f0f0f0;
+    padding: 3px 9px;
+    border-radius: 3px;
+  }
+
+  .title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #111;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: #888;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  .divider {
+    height: 1px;
+    background: #ebebeb;
+    margin: 20px 0;
+  }
+
+  .brief {
+    font-size: 13px;
+    color: #333;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .goal-box {
+    background: #f7f7f7;
+    border-left: 3px solid #111;
+    border-radius: 0 4px 4px 0;
+    padding: 12px 14px;
+    margin-bottom: 20px;
+  }
+
+  .goal-box .goal-label {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 6px;
+  }
+
+  .goal-box p {
+    font-size: 13px;
+    color: #111;
+    line-height: 1.65;
+  }
+
+  .meta-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+
+  .meta-item {
+    background: #f7f7f7;
+    border-radius: 4px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+
+  .meta-value {
+    font-size: 18px;
+    font-weight: 800;
+    color: #111;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+
+  .meta-label {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #999;
+  }
+
+  /* ── INSTRUCTIONS ───────────────────────── */
+  .instructions {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 18px 24px;
+    margin-bottom: 16px;
+  }
+
+  .instructions-title {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ebebeb;
+  }
+
+  .step-list { list-style: none; }
+  .step-list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 7px 0;
+    border-bottom: 1px solid #f4f4f4;
+    font-size: 13px;
+    color: #333;
+    line-height: 1.5;
+  }
+  .step-list li:last-child { border-bottom: none; }
+  .step-num {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #111;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── INDEX ───────────────────────────────── */
+  .index-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 0 4px;
+  }
+
+  .index-title {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #999;
+  }
+
+  .index-count {
+    font-size: 11px;
+    font-weight: 700;
+    color: #bbb;
+  }
+
+  .company-list { list-style: none; }
+
+  .company-item {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    border-radius: 5px;
+    margin-bottom: 7px;
+    transition: border-color 0.15s;
+  }
+
+  .company-item:hover { border-color: #aaa; }
+
+  .company-item a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 16px;
+    text-decoration: none;
+    gap: 12px;
+  }
+
+  .company-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-num {
+    font-size: 10px;
+    font-weight: 800;
+    color: #ccc;
+    letter-spacing: 0.5px;
+    width: 26px;
+    flex-shrink: 0;
+  }
+
+  .company-info { min-width: 0; }
+
+  .company-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .company-meta {
+    font-size: 11px;
+    color: #999;
+    margin-top: 1px;
+  }
+
+  .company-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .sector-tag {
+    font-size: 10px;
+    font-weight: 600;
+    color: #666;
+    background: #f2f2f2;
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+
+  .priority-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .p1 { background: #111; }
+  .p2 { background: #888; }
+  .p3 { background: #ccc; }
+
+  .arrow {
+    font-size: 14px;
+    color: #ccc;
+  }
+
+  /* ── LEGEND ──────────────────────────────── */
+  .legend {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 12px 4px 0;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    color: #888;
+  }
+
+  /* ── FOOTER ──────────────────────────────── */
+  .footer {
+    text-align: center;
+    padding: 24px 0 0;
+    font-size: 10px;
+    color: #bbb;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER CARD -->
+  <div class="header">
+    <div class="top-row">
+      <div class="org-label">Junior Achievement · Greater Miami</div>
+      <div class="event-badge">eMerge Americas 2026</div>
+    </div>
+
+    <div class="title">Walk-In Prospect Dashboard</div>
+    <div class="subtitle">April 23–24, 2026 · Miami Beach Convention Center</div>
+
+    <div class="divider"></div>
+
+    <p class="brief">
+      This is a curated intelligence kit for the eMerge Americas 2026 expo floor.
+      Each card covers a pre-researched exhibitor — company profile, key contacts,
+      CSR history, and a tailored pitch — so every walk-in conversation starts
+      with context, not cold.
+    </p>
+
+    <div class="goal-box">
+      <div class="goal-label">Mission</div>
+      <p>Identify and initiate relationships with corporate sponsors who can support JA Miami through funding, employee volunteering, or long-term partnership — starting with a 60-second booth conversation.</p>
+    </div>
+
+    <div class="meta-row">
+      <div class="meta-item">
+        <div class="meta-value">30</div>
+        <div class="meta-label">Companies</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-value">4</div>
+        <div class="meta-label">Sectors</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-value">2</div>
+        <div class="meta-label">Days</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW TO USE -->
+  <div class="instructions">
+    <div class="instructions-title">How to Use These Cards</div>
+    <ul class="step-list">
+      <li>
+        <span class="step-num">1</span>
+        <span>Check the booth number, find the company on the floor map before approaching.</span>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <span>Start with the <strong>Ice Breaker</strong> — it's context-specific, not generic.</span>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <span>If the decision maker is busy, pivot to the <strong>secondary contact</strong>.</span>
+      </li>
+      <li>
+        <span class="step-num">4</span>
+        <span>Goal is a follow-up meeting — not a full pitch on the floor.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- INDEX -->
+  <div class="index-header">
+    <div class="index-title">Company Index</div>
+    <div class="index-count">30 / 30 ready</div>
+  </div>
+
+  <ul class="company-list">
+    <li class="company-item">
+      <a href="card_01_Commvault.html">
+        <div class="company-left">
+          <div class="card-num">#01</div>
+          <div class="company-info">
+            <div class="company-name">Commvault</div>
+            <div class="company-meta">Booth #229 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p1"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_02_SAPConcur.html">
+        <div class="company-left">
+          <div class="card-num">#02</div>
+          <div class="company-info">
+            <div class="company-name">SAP Concur</div>
+            <div class="company-meta">Booth #320 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p1"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_03_GreenbergTraurig.html">
+        <div class="company-left">
+          <div class="card-num">#03</div>
+          <div class="company-info">
+            <div class="company-name">Greenberg Traurig</div>
+            <div class="company-meta">Booth #517 · Law</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Law</span>
+          <span class="priority-dot p1"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_04_CarltonFields.html">
+        <div class="company-left">
+          <div class="card-num">#04</div>
+          <div class="company-info">
+            <div class="company-name">Carlton Fields</div>
+            <div class="company-meta">Booth #362 · Law</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Law</span>
+          <span class="priority-dot p1"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_05_Justworks.html">
+        <div class="company-left">
+          <div class="card-num">#05</div>
+          <div class="company-info">
+            <div class="company-name">Justworks</div>
+            <div class="company-meta">Booth #1062 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p2"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_06_Glean.html">
+        <div class="company-left">
+          <div class="card-num">#06</div>
+          <div class="company-info">
+            <div class="company-name">Glean</div>
+            <div class="company-meta">Booth #411a · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p1"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_07_Ramp.html">
+        <div class="company-left">
+          <div class="card-num">#07</div>
+          <div class="company-info">
+            <div class="company-name">Ramp</div>
+            <div class="company-meta">Booth #985 · Fintech</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Fintech</span>
+          <span class="priority-dot p1"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_08_CASTAI.html">
+        <div class="company-left">
+          <div class="card-num">#08</div>
+          <div class="company-info">
+            <div class="company-name">CAST AI</div>
+            <div class="company-meta">Booth #321 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p2"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_09_Nividous.html">
+        <div class="company-left">
+          <div class="card-num">#09</div>
+          <div class="company-info">
+            <div class="company-name">Nividous</div>
+            <div class="company-meta">Booth #327 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p2"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_10_NIX.html">
+        <div class="company-left">
+          <div class="card-num">#10</div>
+          <div class="company-info">
+            <div class="company-name">NIX</div>
+            <div class="company-meta">Booth #326 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p2"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_11_ExtraHop.html">
+        <div class="company-left">
+          <div class="card-num">#11</div>
+          <div class="company-info">
+            <div class="company-name">ExtraHop</div>
+            <div class="company-meta">Booth #347a · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p2"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_12_Appgate.html">
+        <div class="company-left">
+          <div class="card-num">#12</div>
+          <div class="company-info">
+            <div class="company-name">Appgate</div>
+            <div class="company-meta">Booth #459 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p2"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_13_BabelStreet.html">
+        <div class="company-left">
+          <div class="card-num">#13</div>
+          <div class="company-info">
+            <div class="company-name">Babel Street</div>
+            <div class="company-meta">Booth #364 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p2"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_14_Flashpoint.html">
+        <div class="company-left">
+          <div class="card-num">#14</div>
+          <div class="company-info">
+            <div class="company-name">Flashpoint</div>
+            <div class="company-meta">Booth #360 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p2"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_15_Venable.html">
+        <div class="company-left">
+          <div class="card-num">#15</div>
+          <div class="company-info">
+            <div class="company-name">Venable LLP</div>
+            <div class="company-meta">Booth #928 · Law</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Law</span>
+          <span class="priority-dot p2"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_16_BilzinSumberg.html">
+        <div class="company-left">
+          <div class="card-num">#16</div>
+          <div class="company-info">
+            <div class="company-name">Bilzin Sumberg</div>
+            <div class="company-meta">Booth #963 · Law</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Law</span>
+          <span class="priority-dot p2"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_17_IonQ.html">
+        <div class="company-left">
+          <div class="card-num">#17</div>
+          <div class="company-info">
+            <div class="company-name">IonQ</div>
+            <div class="company-meta">Booth #524 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p2"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_18_TalentFrequency.html">
+        <div class="company-left">
+          <div class="card-num">#18</div>
+          <div class="company-info">
+            <div class="company-name">Talent Frequency</div>
+            <div class="company-meta">Booth #420 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p2"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_19_RecurrentVentures.html">
+        <div class="company-left">
+          <div class="card-num">#19</div>
+          <div class="company-info">
+            <div class="company-name">Recurrent Ventures</div>
+            <div class="company-meta">Booth #349 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p2"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_20_Glid.html">
+        <div class="company-left">
+          <div class="card-num">#20</div>
+          <div class="company-info">
+            <div class="company-name">Glid</div>
+            <div class="company-meta">Booth #377 · Fintech</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Fintech</span>
+          <span class="priority-dot p3"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_21_Listra.html">
+        <div class="company-left">
+          <div class="card-num">#21</div>
+          <div class="company-info">
+            <div class="company-name">Listra.ai</div>
+            <div class="company-meta">Booth #308a · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p3"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_22_Nebulai.html">
+        <div class="company-left">
+          <div class="card-num">#22</div>
+          <div class="company-info">
+            <div class="company-name">Nebulai</div>
+            <div class="company-meta">Booth #433 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p3"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_23_Servicebots.html">
+        <div class="company-left">
+          <div class="card-num">#23</div>
+          <div class="company-info">
+            <div class="company-name">Servicebots.ai</div>
+            <div class="company-meta">Booth #418 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p3"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_24_AgentCloak.html">
+        <div class="company-left">
+          <div class="card-num">#24</div>
+          <div class="company-info">
+            <div class="company-name">AgentCloak</div>
+            <div class="company-meta">Booth #333 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p3"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_25_SwanSoftweb.html">
+        <div class="company-left">
+          <div class="card-num">#25</div>
+          <div class="company-info">
+            <div class="company-name">Swan Softweb Solutions</div>
+            <div class="company-meta">Booth #425 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p3"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_26_Rovex.html">
+        <div class="company-left">
+          <div class="card-num">#26</div>
+          <div class="company-info">
+            <div class="company-name">Rovex</div>
+            <div class="company-meta">Booth #811 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p3"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_27_NeuralSeek.html">
+        <div class="company-left">
+          <div class="card-num">#27</div>
+          <div class="company-info">
+            <div class="company-name">NeuralSeek</div>
+            <div class="company-meta">Booth #414 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p3"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_28_Wellnext.html">
+        <div class="company-left">
+          <div class="card-num">#28</div>
+          <div class="company-info">
+            <div class="company-name">Wellnext</div>
+            <div class="company-meta">Booth #809 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p3"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_29_ElevationAI.html">
+        <div class="company-left">
+          <div class="card-num">#29</div>
+          <div class="company-info">
+            <div class="company-name">Elevation AI</div>
+            <div class="company-meta">Booth #408 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p2"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+    <li class="company-item">
+      <a href="card_30_IncubateIQ.html">
+        <div class="company-left">
+          <div class="card-num">#30</div>
+          <div class="company-info">
+            <div class="company-name">Incubate-IQ</div>
+            <div class="company-meta">Booth #510 · Technology</div>
+          </div>
+        </div>
+        <div class="company-right">
+          <span class="sector-tag">Technology</span>
+          <span class="priority-dot p3"></span>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </li>
+  </ul>
+
+  <div class="legend">
+    <div class="legend-item"><span class="priority-dot p1"></span> Priority 1 — Approach first</div>
+    <div class="legend-item"><span class="priority-dot p2"></span> Priority 2 — Strong fit</div>
+    <div class="legend-item"><span class="priority-dot p3"></span> Priority 3 — Seed &amp; follow up</div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Created by JA Miami · Ahmet Caner
+  </div>
+
+</div>
+</body>
+</html>
